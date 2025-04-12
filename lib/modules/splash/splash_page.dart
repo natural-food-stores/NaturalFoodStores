@@ -22,7 +22,7 @@ class SplashPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/app_logo.png",
+                      "assets/images/splashscreen.png",
                       width: 140,
                       height: 140,
                     ),

@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: true,
-      title: 'Quick Mart App',
+      debugShowCheckedModeBanner: false,
+      title: 'Natural Food Stores',
       theme: ThemeData(
         fontFamily: GoogleFonts.lato().fontFamily,
       ).copyWith(

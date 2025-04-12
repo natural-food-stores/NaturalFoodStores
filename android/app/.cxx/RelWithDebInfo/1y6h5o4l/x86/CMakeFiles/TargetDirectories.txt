@@ -1,0 +1,2 @@
+C:/Users/Yash Avsarmal/Downloads/Natural-Main/naturals.v2/android/app/.cxx/RelWithDebInfo/1y6h5o4l/x86/CMakeFiles/edit_cache.dir
+C:/Users/Yash Avsarmal/Downloads/Natural-Main/naturals.v2/android/app/.cxx/RelWithDebInfo/1y6h5o4l/x86/CMakeFiles/rebuild_cache.dir
