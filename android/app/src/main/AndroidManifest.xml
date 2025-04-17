@@ -1,8 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="Natural Food Stores"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:label="naturals"
+        android:enableOnBackInvokedCallback="true">
+        
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCQT5clYkQwBWXHpafHArKZICeldoViaWw"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

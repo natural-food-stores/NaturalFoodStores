@@ -19,147 +19,156 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          title: Text(
-            "Natural Food Stores",
-            style: TextStyle(
-                color: ThemeColor.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text(
+          "Natural Food Stores",
+          style: TextStyle(
+            color: ThemeColor.white,
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.5,
           ),
-          actions: [
-            IconButton(
+        ),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 16),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: IconButton(
               icon: SvgPicture.asset(
                 'assets/images/notification_icon.svg',
-                color: ThemeColor.black,
+                color: ThemeColor.white,
+                height: 24,
               ),
               onPressed: () {
                 Get.toNamed(AppRoutes.notificationPage);
               },
-            )
-          ],
-          backgroundColor: ThemeColor.white,
-          elevation: 0,
-          scrolledUnderElevation: 0,
+            ),
+          ),
+        ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [ThemeColor.primary, ThemeColor.accent],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.0, 1.0],
+            ),
+          ),
         ),
-        backgroundColor: ThemeColor.white,
-        body: SafeArea(
-            child: SingleChildScrollView(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+      ),
+      backgroundColor: ThemeColor.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Obx(
             () => Column(
               children: [
-                SizedBox(
-                  height: 12,
+                SizedBox(height: 20),
+                // Search Bar with enhanced styling
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Search(),
+                  ),
+                ),
+                SizedBox(height: 24),
+                // Carousel with enhanced styling
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 12,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Carousel(),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Search(),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Carousel(),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: homeController.isLoading.value
-                      ? const Center(child: CircularProgressIndicator())
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: ThemeColor.accent,
+                            strokeWidth: 3,
+                          ),
+                        )
                       : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: 16,
+                            SizedBox(height: 24),
+                            // Section Header with enhanced styling
+                            _buildSectionHeader(
+                              "Exclusive Offer",
+                              () {
+                                Get.toNamed(AppRoutes.productListPage,
+                                    arguments: {
+                                      ARG_EXCLUSIVE_OFFER_LIST:
+                                          homeController.exclusiveOfferList,
+                                      ARG_CATEGORY_NAME: "Exclusive Offer"
+                                    });
+                              },
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Exclusive Offer",
-                                  style: TextStyle(
-                                      color: ThemeColor.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.productListPage,
-                                        arguments: {
-                                          ARG_EXCLUSIVE_OFFER_LIST:
-                                              homeController.exclusiveOfferList,
-                                          ARG_CATEGORY_NAME: "Exclusive Offer"
-                                        });
-                                  },
-                                  child: Text(
-                                    "See All",
-                                    style: TextStyle(
-                                        color: ThemeColor.accent,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
+                            SizedBox(height: 12),
                             ProductList(
                               product: homeController.exclusiveOfferList,
                             ),
-                            SizedBox(
-                              height: 16,
+                            SizedBox(height: 32),
+                            _buildSectionHeader(
+                              "Best Selling",
+                              () {
+                                Get.toNamed(AppRoutes.productListPage,
+                                    arguments: {
+                                      ARG_BEST_SELLING_LIST:
+                                          homeController.bestSellingList,
+                                      ARG_CATEGORY_NAME: "Best Selling"
+                                    });
+                              },
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Best Selling",
-                                  style: TextStyle(
-                                      color: ThemeColor.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.productListPage,
-                                        arguments: {
-                                          ARG_BEST_SELLING_LIST:
-                                              homeController.bestSellingList,
-                                          ARG_CATEGORY_NAME: "Best Selling"
-                                        });
-                                  },
-                                  child: Text(
-                                    "See All",
-                                    style: TextStyle(
-                                        color: ThemeColor.accent,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
+                            SizedBox(height: 12),
                             ProductList(
                               product: homeController.bestSellingList,
                             ),
-                            SizedBox(
-                              height: 16,
+                            SizedBox(height: 32),
+                            // Categories Section with enhanced styling
+                            Text(
+                              "Shop by category",
+                              style: TextStyle(
+                                color: ThemeColor.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.5,
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Shop by category",
-                                  style: TextStyle(
-                                      color: ThemeColor.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
+                            SizedBox(height: 16),
                             GridView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               itemCount: homeController.categoryList.length,
@@ -169,37 +178,57 @@ class HomePage extends StatelessWidget {
                                   onTap: () {
                                     Get.toNamed(AppRoutes.productListPage,
                                         arguments: {
-                                          ARG_CATEGORY_ID: homeController
-                                              .categoryList[index].id,
-                                          ARG_CATEGORY_NAME: homeController
-                                              .categoryList[index].name
+                                          ARG_CATEGORY_ID:
+                                              homeController.categoryList[index].id,
+                                          ARG_CATEGORY_NAME:
+                                              homeController.categoryList[index].name
                                         });
                                   },
-                                  child: CircleAvatar(
-                                    radius: 32,
-                                    backgroundColor:
-                                        AppUtils.getRandomAvatarBgColor(),
-                                    child: ClipOval(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              "${homeController.categoryList[index].imageUrl}",
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          placeholder: (context, url) => Center(
-                                            child: Container(
-                                              width: 16,
-                                              height: 16,
-                                              child: CircularProgressIndicator(
-                                                color: ThemeColor.accent,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.05),
+                                          blurRadius: 8,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Card(
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: CircleAvatar(
+                                        radius: 36,
+                                        backgroundColor:
+                                            AppUtils.getRandomAvatarBgColor(),
+                                        child: ClipOval(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  "${homeController.categoryList[index].imageUrl}",
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                              placeholder: (context, url) => Center(
+                                                child: Container(
+                                                  width: 20,
+                                                  height: 20,
+                                                  child: CircularProgressIndicator(
+                                                    color: ThemeColor.accent,
+                                                    strokeWidth: 2,
+                                                  ),
+                                                ),
+                                              ),
+                                              errorWidget: (context, url, error) =>
+                                                  Icon(
+                                                Icons.error,
+                                                color: ThemeColor.red,
+                                                size: 24,
                                               ),
                                             ),
-                                          ),
-                                          errorWidget: (context, url, error) =>
-                                              Icon(
-                                            Icons.error,
-                                            color: ThemeColor.red,
                                           ),
                                         ),
                                       ),
@@ -210,49 +239,66 @@ class HomePage extends StatelessWidget {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 4,
-                                mainAxisSpacing: 12,
-                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 16,
+                                crossAxisSpacing: 16,
+                                childAspectRatio: 0.9,
                               ),
                             ),
-                            SizedBox(
-                              height: 16,
+                            SizedBox(height: 32),
+                            _buildSectionHeader(
+                              "All Products",
+                              () {
+                                Get.toNamed(AppRoutes.searchStorePage);
+                              },
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "All Products",
-                                  style: TextStyle(
-                                      color: ThemeColor.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.searchStorePage);
-                                  },
-                                  child: Text(
-                                    "See All",
-                                    style: TextStyle(
-                                        color: ThemeColor.accent,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
+                            SizedBox(height: 12),
                             ProductList(
                               product: homeController.allProductList,
                             ),
+                            SizedBox(height: 24),
                           ],
                         ),
                 ),
               ],
             ),
           ),
-        )));
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, VoidCallback onSeeAll) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            color: ThemeColor.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.5,
+          ),
+        ),
+        InkWell(
+          onTap: onSeeAll,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: ThemeColor.accent.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              "See All",
+              style: TextStyle(
+                color: ThemeColor.accent,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

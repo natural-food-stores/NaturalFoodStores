@@ -1,6 +1,6 @@
 name: quick_mart
 description: "A Ecommerce App"
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -8,6 +8,8 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
+  flutter:
+    sdk: flutter
   cached_network_image: ^3.4.0
   carousel_slider: ^5.0.0
   cupertino_icons: ^1.0.6
@@ -18,29 +20,37 @@ dependencies:
   firebase_core: ^3.3.0
   firebase_crashlytics: ^4.0.4
   firebase_messaging: ^15.0.4
-  http: ^1.0.0
-  flutter:
-    sdk: flutter
+  http: ^1.2.2
+  google_fonts: ^5.1.0
   flutter_svg: ^2.0.10+1
   get: ^4.6.1
   get_storage: ^2.0.3
-  google_fonts: ^5.1.0
   intl: ^0.19.0
   package_info_plus: ^4.0.0
+  shimmer: ^3.0.0
+  google_maps_flutter: ^2.5.3
+  permission_handler: ^11.3.0
+  geocoding: ^2.1.1
+  google_maps_webservice: ^0.0.7
+  flutter_dotenv: ^5.0.2
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
   flutter_test:
     sdk: flutter
 
+dependency_overrides:
+  http: ^0.13.4
+
+
 flutter_launcher_icons:
-  android: true #should generate android icon
-  ios: true #should generate IOS icon
+  android: true
+  ios: true
   image_path: "assets/icon/app_main_logo.jpg"
 
 flutter:
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
