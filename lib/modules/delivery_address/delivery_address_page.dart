@@ -29,7 +29,7 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
   void initState() {
     super.initState();
     deliveryAddressController = Get.find<DeliveryAddressController>();
-    _places = GoogleMapsPlaces(apiKey:'AIzaSyCQT5clYkQwBWXHpafHArKZICeldoViaWw');
+    _places = GoogleMapsPlaces(apiKey: dotenv.env['GOOGLE_MAPS_API_KEY']);
     _initializeMap();
   }
 
